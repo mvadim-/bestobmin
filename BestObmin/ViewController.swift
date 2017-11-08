@@ -1,0 +1,99 @@
+//
+//  ViewController.swift
+//  BestObmin
+//
+//  Created by Vadym Maslov on 11/1/17.
+//  Copyright © 2017 Vadym Maslov. All rights reserved.
+//
+
+import UIKit
+import SwiftSoup
+
+class ViewController: UIViewController {
+    @IBOutlet weak var curTV: UITableView!
+    var curList = [VMCurrencyModel?]()
+    var refreshControl = UIRefreshControl()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        curTV.dataSource = self
+        curTV.delegate = self
+
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action:#selector(refreshData(_:)), for: .valueChanged)
+        if #available(iOS 11.0, *) {
+            curTV.refreshControl = refreshControl
+        } else {
+            curTV.addSubview(refreshControl)
+        }
+        updateSources()
+    }
+    
+    @objc private func refreshData(_ sender: Any) {
+        // Fetch  Data
+        DispatchQueue.global().async {
+            self.updateSources()
+        }
+    }
+    
+    func updateSources() -> Void {
+        let myURLString = "http://bestobmin.com.ua"
+        
+        guard let myURL = URL(string: myURLString) else {
+            print("Error: \(myURLString) doesn't seem to be a valid URL")
+            return
+        }
+        
+        guard let myHTMLString = try? String(contentsOf: myURL, encoding: .utf8)else {
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+            return
+        }
+        
+        do {
+            let doc: Document   = try SwiftSoup.parse(myHTMLString)
+            let table: Elements = try doc.getElementsByClass("tab-pane fade in active")
+            let rows: Elements  = try (table.array().first?.getElementsByClass("row"))!
+            self.curList = []
+            for cur: Element in rows{
+                let cm = VMCurrencyModel(cur)
+                curList.append(cm)
+            }
+            DispatchQueue.main.async {
+                self.curList.removeFirst()
+                self.curTV.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        } catch let error {
+            print("Error: \(error)")
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return curList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell    = tableView.dequeueReusableCell(withIdentifier: "curCell") as UITableViewCell!
+        guard let cm                = curList[indexPath.row] else {return cell}
+        let flag                    = cm.flag.components(separatedBy: "/")
+        cell.textLabel?.text        = cm.currency
+        cell.detailTextLabel?.text  = "\(cm.buy)        \(cm.sell)"
+        cell.imageView?.image       =  UIImage(named: flag.last!)
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "                 Купівля   Продаж"
+    }
+}

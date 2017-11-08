@@ -1,0 +1,6 @@
+framework module Pods_BestObmin {
+  umbrella header "Pods-BestObmin-umbrella.h"
+
+  export *
+  module * { export * }
+}
