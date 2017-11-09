@@ -102,7 +102,7 @@ open class StringBuilder {
      */
     @discardableResult
     open func appendLine(_ string: String) -> StringBuilder {
-        stringValue.append(contentsOf: "\n".characters)
+        stringValue.append(contentsOf: "\n")
         return self
     }
     
@@ -116,7 +116,7 @@ open class StringBuilder {
     @discardableResult
     open func appendLine<T: CustomStringConvertible>(_ value: T) -> StringBuilder {
         stringValue.append(contentsOf: value.description)
-        stringValue.append(contentsOf: "\n".characters)
+        stringValue.append(contentsOf: "\n")
         return self
     }
     
