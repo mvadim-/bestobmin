@@ -11,22 +11,25 @@ import SwiftSoup
 
 class ViewController: UIViewController {
     @IBOutlet weak var curTV: UITableView!
-    var curList = [VMCurrencyModel?]()
-    var refreshControl = UIRefreshControl()
+    var curList             = [VMCurrencyModel?]()
+    lazy var refreshControl = UIRefreshControl()
+    static let myURLString  = "http://bestobmin.com.ua"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        curTV.dataSource = self
-        curTV.delegate = self
-
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        setup()
+        updateSources()
+    }
+    
+    func setup() -> Void {
+        curTV.dataSource                = self
+        refreshControl.attributedTitle  = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action:#selector(refreshData(_:)), for: .valueChanged)
         if #available(iOS 11.0, *) {
             curTV.refreshControl = refreshControl
         } else {
             curTV.addSubview(refreshControl)
         }
-        updateSources()
     }
     
     @objc private func refreshData(_ sender: Any) {
@@ -37,16 +40,14 @@ class ViewController: UIViewController {
     }
     
     func updateSources() -> Void {
-        let myURLString = "http://bestobmin.com.ua"
-        
-        guard let myURL = URL(string: myURLString) else {
-            print("Error: \(myURLString) doesn't seem to be a valid URL")
+        guard let myURL = URL(string: ViewController.myURLString) else {
+            print("Error: \(ViewController.myURLString) doesn't seem to be a valid URL")
             return
         }
         
         guard let myHTMLString = try? String(contentsOf: myURL, encoding: .utf8)else {
             DispatchQueue.main.async {
-                self.refreshControl.endRefreshing()
+                if self.refreshControl.isRefreshing {self.refreshControl.endRefreshing()}
             }
             return
         }
@@ -55,7 +56,7 @@ class ViewController: UIViewController {
             let doc: Document   = try SwiftSoup.parse(myHTMLString)
             let table: Elements = try doc.getElementsByClass("tab-pane fade in active")
             let rows: Elements  = try (table.array().first?.getElementsByClass("row"))!
-            self.curList = []
+            self.curList        = []
             for cur: Element in rows{
                 let cm = VMCurrencyModel(cur)
                 curList.append(cm)
@@ -89,11 +90,5 @@ extension ViewController: UITableViewDataSource{
         cell.detailTextLabel?.text  = "\(cm.buy)        \(cm.sell)"
         cell.imageView?.image       =  UIImage(named: flag.last!)
         return cell
-    }
-}
-
-extension ViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "                 Купівля   Продаж"
     }
 }
