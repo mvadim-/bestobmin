@@ -538,7 +538,7 @@ public class Whitelist {
         // try to resolve relative urls to abs, and optionally update the attribute so output html has abs.
         // rels without a baseuri get removed
         var value: String = try el.absUrl(attr.getKey())
-        if (value.characters.count == 0) {
+        if (value.count == 0) {
             value = attr.getValue()
         }// if it could not be made abs, run as-is to allow custom unknown protocols
         if (!preserveRelativeLinks) {
@@ -640,7 +640,7 @@ open class TypedValue {
 
 extension TypedValue: Hashable {
     public var hashValue: Int {
-        let prime = 31
+        _ = 31
 //        var result: Int {
 //            return Int.addingReportingOverflow(Int.multipliedReportingOverflow(prime, 1).0, value.hash).0
 //        }

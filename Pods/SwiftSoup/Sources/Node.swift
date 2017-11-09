@@ -74,10 +74,10 @@ open class Node: Equatable, Hashable {
      */
     open func attr(_ attributeKey: String)throws ->String {
         let val: String = try attributes!.getIgnoreCase(key: attributeKey)
-        if (val.characters.count > 0) {
+        if (val.count > 0) {
             return val
         } else if (attributeKey.lowercased().startsWith("abs:")) {
-            return try absUrl(attributeKey.substring("abs:".characters.count))
+            return try absUrl(attributeKey.substring("abs:".count))
         } else {return ""}
     }
 
@@ -111,7 +111,7 @@ open class Node: Equatable, Hashable {
 			return false
 		}
         if (attributeKey.startsWith("abs:")) {
-            let key: String = attributeKey.substring("abs:".characters.count)
+            let key: String = attributeKey.substring("abs:".count)
             do {
                 let abs = try absUrl(key)
                 if (attributes.hasKeyIgnoreCase(key: key) &&  !"".equals(abs)) {
@@ -771,7 +771,7 @@ open class Node: Equatable, Hashable {
 	/// Hash values are not guaranteed to be equal across different executions of
 	/// your program. Do not save hash values to use during a future execution.
 	public var hashValue: Int {
-		var result: Int  = description.hashValue
+        let result: Int  = description.hashValue
 	//	result = Int.addWithOverflow(Int.multiplyWithOverflow(31, result).0, baseUri != nil ? baseUri!.hashValue : 31).0
 		return result
 	}

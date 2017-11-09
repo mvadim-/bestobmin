@@ -235,7 +235,7 @@ open class Tag: Hashable {
     /// Hash values are not guaranteed to be equal across different executions of
     /// your program. Do not save hash values to use during a future execution.
     public var hashValue: Int {
-        var result: Int  = _tagName.hashValue
+        let result: Int  = _tagName.hashValue
 //        result = Int.addingReportingOverflow(Int.multipliedReportingOverflow(31, result).0, _isBlock ? 1 : 0).0
 //        result = Int.addingReportingOverflow(Int.multipliedReportingOverflow(31, result).0, _formatAsBlock ? 1 : 0).0
 //        result = Int.addingReportingOverflow(Int.multipliedReportingOverflow(31, result).0, _canContainBlock ? 1 : 0).0
