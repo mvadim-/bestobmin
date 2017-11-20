@@ -11,9 +11,9 @@ import SwiftSoup
 
 class VMCurrencyModel: NSObject {
     var currency = ""
-    var sell = ""
-    var buy = ""
-    var flag = ""
+    var sell     = ""
+    var buy      = ""
+    var flag     = ""
     
     convenience init(_ el: Element) {
         self.init()

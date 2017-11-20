@@ -73,11 +73,11 @@
 			children = (
 				C3CBC9731FAA232300802D44 /* AppDelegate.swift */,
 				C3CBC9751FAA232300802D44 /* ViewController.swift */,
+				C3CBC9941FAB683C00802D44 /* VMCurrencyModel.swift */,
 				C3CBC9771FAA232300802D44 /* Main.storyboard */,
 				C3CBC97A1FAA232300802D44 /* Assets.xcassets */,
 				C3CBC97C1FAA232300802D44 /* LaunchScreen.storyboard */,
 				C3CBC97F1FAA232300802D44 /* Info.plist */,
-				C3CBC9941FAB683C00802D44 /* VMCurrencyModel.swift */,
 			);
 			path = BestObmin;
 			sourceTree = "<group>";
@@ -361,10 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3NZ7PKKDU;
+				DEVELOPMENT_TEAM = 7FLBNAD4UN;
 				INFOPLIST_FILE = BestObmin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VM.BestObmin;
+				PRODUCT_BUNDLE_IDENTIFIER = powwow.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -377,10 +377,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3NZ7PKKDU;
+				DEVELOPMENT_TEAM = 7FLBNAD4UN;
 				INFOPLIST_FILE = BestObmin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VM.BestObmin;
+				PRODUCT_BUNDLE_IDENTIFIER = powwow.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
