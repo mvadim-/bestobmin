@@ -83,12 +83,12 @@ extension ViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell    = tableView.dequeueReusableCell(withIdentifier: "curCell") as UITableViewCell!
-        guard let cm                = curList[indexPath.row] else {return cell}
-        let flag                    = cm.flag.components(separatedBy: "/")
-        cell.textLabel?.text        = cm.currency
-        cell.detailTextLabel?.text  = "\(cm.buy)        \(cm.sell)"
-        cell.imageView?.image       =  UIImage(named: flag.last!)
+        let cell: CurrencyTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "curCell") as! CurrencyTableViewCell
+        guard let cm                     = curList[indexPath.row] else {return cell}
+        let flag                         = cm.flag.components(separatedBy: "/")
+        cell.buy.text                    = cm.buy
+        cell.sell.text                   = cm.sell
+        cell.flag.image                  =  UIImage(named: flag.last!)
         return cell
     }
 }
