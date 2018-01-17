@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        updateSources()
+        refreshData((Any).self)
     }
     
     func setup() -> Void {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         
         do {
             let doc: Document   = try SwiftSoup.parse(myHTMLString)
-            let table: Elements = try doc.getElementsByClass("tab-pane fade in active")
+            let table: Elements = try doc.getElementsByAttributeValue("id", "rozdrib")
             let rows: Elements  = try (table.array().first?.getElementsByClass("row"))!
             self.curList        = []
             for cur: Element in rows{
