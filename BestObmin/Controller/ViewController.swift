@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     
     func setup() -> Void {
         curTV.dataSource                = self
+        curTV.rowHeight                 = 60
         refreshControl.attributedTitle  = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action:#selector(refreshData(_:)), for: .valueChanged)
         if #available(iOS 11.0, *) {
@@ -42,7 +43,6 @@ class ViewController: UIViewController {
     
     func updateSources() -> Void {
         SKActivityIndicator.show("Updating...", userInteractionStatus: false)
-
         guard let myURL = URL(string: ViewController.myURLString) else {
             print("Error: \(ViewController.myURLString) doesn't seem to be a valid URL")
             return
@@ -95,4 +95,5 @@ extension ViewController: UITableViewDataSource{
         cell.flag.image                  =  UIImage(named: flag.last!)
         return cell
     }
+    
 }
