@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftSoup
+import SKActivityIndicatorView
 
 class ViewController: UIViewController {
     @IBOutlet weak var curTV: UITableView!
@@ -40,6 +41,8 @@ class ViewController: UIViewController {
     }
     
     func updateSources() -> Void {
+        SKActivityIndicator.show("Updating...", userInteractionStatus: false)
+
         guard let myURL = URL(string: ViewController.myURLString) else {
             print("Error: \(ViewController.myURLString) doesn't seem to be a valid URL")
             return
@@ -62,6 +65,7 @@ class ViewController: UIViewController {
                 curList.append(cm)
             }
             DispatchQueue.main.async {
+                SKActivityIndicator.dismiss()
                 self.curList.removeFirst()
                 self.curTV.reloadData()
                 self.refreshControl.endRefreshing()

@@ -19,12 +19,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="SMY-V6-0Qx">
-                                <rect key="frame" x="0.0" y="-5" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="812"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="SMY-V6-0Qx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-10" id="Inv-a6-xIg"/>
+                            <constraint firstItem="SMY-V6-0Qx" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Inv-a6-xIg"/>
                             <constraint firstItem="SMY-V6-0Qx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="O37-Ox-MSq"/>
                             <constraint firstItem="SMY-V6-0Qx" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="dUS-rf-sSh"/>
                             <constraint firstItem="SMY-V6-0Qx" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="dYg-LF-Lfp"/>
