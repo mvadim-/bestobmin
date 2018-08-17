@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var curList             = [VMCurrencyModel?]()
     lazy var refreshControl = UIRefreshControl()
     static let myURLString  = "http://bestobmin.com.ua"
-    
+    var curLimit            = "rozdrib"
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -41,6 +41,12 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func gurt(_ sender: UIBarButtonItem) {
+        sender.title = (sender.title == "$") ? "$$$" : "$"
+        curLimit = (sender.title == "$$$") ? "opt" : "rozdrib"
+        updateSources()
+    }
+    
     func updateSources() -> Void {
         SKActivityIndicator.show("Updating...", userInteractionStatus: false)
         guard let myURL = URL(string: ViewController.myURLString) else {
@@ -57,7 +63,7 @@ class ViewController: UIViewController {
         
         do {
             let doc: Document   = try SwiftSoup.parse(myHTMLString)
-            let table: Elements = try doc.getElementsByAttributeValue("id", "rozdrib")
+            let table: Elements = try doc.getElementsByAttributeValue("id", curLimit)
             let rows: Elements  = try (table.array().first?.getElementsByClass("row"))!
             self.curList        = []
             for cur: Element in rows{
