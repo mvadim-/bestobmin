@@ -72,7 +72,6 @@ class ViewController: UIViewController {
             }
             DispatchQueue.main.async {
                 SKActivityIndicator.dismiss()
-                self.curList.removeFirst()
                 self.curTV.reloadData()
                 self.refreshControl.endRefreshing()
             }
