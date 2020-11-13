@@ -97,6 +97,7 @@ extension ViewController: UITableViewDataSource{
         let flag                         = cm.flag.components(separatedBy: "/")
         cell.buy.text                    = cm.buy
         cell.sell.text                   = cm.sell
+        cell.currency.text               = cm.currency
         cell.flag.image                  =  UIImage(named: flag.last!)
         return cell
     }

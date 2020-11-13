@@ -14,7 +14,7 @@ class VMCurrencyModel: NSObject {
     var sell     = ""
     var buy      = ""
     var flag     = ""
-    
+
     convenience init(_ el: Element) {
         self.init()
         do {

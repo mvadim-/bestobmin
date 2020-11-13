@@ -14,6 +14,7 @@ class CurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var flag: UIImageView!
     @IBOutlet weak var sell: UILabel!
     @IBOutlet weak var buy: UILabel!
+    @IBOutlet weak var currency: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
