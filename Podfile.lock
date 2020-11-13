@@ -1,20 +1,30 @@
 PODS:
+  - Realm (3.20.0):
+    - Realm/Headers (= 3.20.0)
+  - Realm/Headers (3.20.0)
+  - RealmSwift (3.20.0):
+    - Realm (= 3.20.0)
   - SKActivityIndicatorView (0.1.0)
-  - SwiftSoup (1.4.2)
+  - SwiftSoup (2.2.1)
 
 DEPENDENCIES:
+  - RealmSwift
   - SKActivityIndicatorView (~> 0.1)
   - SwiftSoup
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Realm
+    - RealmSwift
     - SKActivityIndicatorView
     - SwiftSoup
 
 SPEC CHECKSUMS:
+  Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
+  RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
-  SwiftSoup: 9638363718859b469c3d7877b2b6a640348bacb7
+  SwiftSoup: a91d3c96ecb6f8f13005552ef60f9075aae4a7f3
 
-PODFILE CHECKSUM: 8582b8dbedbd000ef32e3db429854f89e967eb76
+PODFILE CHECKSUM: 857ade9ddc46466a32fb2649f7494599d415b85c
 
 COCOAPODS: 1.10.0
