@@ -7,7 +7,7 @@ DEPENDENCIES:
   - SwiftSoup
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - SKActivityIndicatorView
     - SwiftSoup
 
@@ -17,4 +17,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8582b8dbedbd000ef32e3db429854f89e967eb76
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.10.0

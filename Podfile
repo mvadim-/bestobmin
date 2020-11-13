@@ -4,4 +4,5 @@ target 'BestObmin' do
   use_frameworks!
   pod "SwiftSoup"
   pod 'SKActivityIndicatorView', '~> 0.1'
+  pod 'RealmSwift'
  end
