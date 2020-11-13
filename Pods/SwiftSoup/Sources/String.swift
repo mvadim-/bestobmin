@@ -155,7 +155,7 @@ extension String {
     }
 
 	static func unicodescalars ( _ scalars: [UnicodeScalar]) -> String {
-		return String(scalars.flatMap { Character($0) })
+		return String(scalars.compactMap { Character($0) })
 	}
 
 }

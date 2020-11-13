@@ -392,7 +392,7 @@ public final class CharacterReader {
      * some more duplicates.
      */
     private func cacheString(_ start: Int, _ count: Int) -> String {
-        return String(input[start..<start+count].flatMap { Character($0) })
+        return String(input[start..<start+count].compactMap { Character($0) })
 // Too Slow
 //        var cache: [String?] = stringCache
 //

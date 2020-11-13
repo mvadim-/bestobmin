@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var curList             = [VMCurrencyModel?]()
     lazy var refreshControl = UIRefreshControl()
     static let myURLString  = "http://bestobmin.com.ua"
-    var curLimit            = "rozdrib"
+    var curLimit            = "opt"
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -42,8 +42,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func gurt(_ sender: UIBarButtonItem) {
-        sender.title = (sender.title == "$") ? "$$$" : "$"
-        curLimit = (sender.title == "$$$") ? "opt" : "rozdrib"
+        sender.title = (sender.title == "$$$") ? "$" : "$$$"
+        curLimit = (sender.title == "$$$") ? "rozdrib" : "opt"
         updateSources()
     }
     
@@ -102,3 +102,4 @@ extension ViewController: UITableViewDataSource{
     }
     
 }
+
