@@ -9,6 +9,8 @@
 import UIKit
 import SwiftSoup
 import SKActivityIndicatorView
+import RealmSwift
+
 
 class ViewController: UIViewController {
     @IBOutlet weak var curTV: UITableView!
@@ -98,8 +100,23 @@ extension ViewController: UITableViewDataSource{
         cell.buy.text                    = cm.buy
         cell.sell.text                   = cm.sell
         cell.currency.text               = cm.currency
-        cell.flag.image                  =  UIImage(named: flag.last!)
+        cell.flag.image                  = UIImage(named: flag.last!)
+        updateDB(cur: cm)
         return cell
+    }
+    
+    func updateDB(cur:VMCurrencyModel) {
+        let realmObj        = CurrencyObject()
+        realmObj.currency   = cur.currency
+        realmObj.buy        = cur.buy
+        realmObj.sell       = cur.sell
+        realmObj.date       = Date()
+        realmObj.flag       = cur.flag.components(separatedBy: "/").last!
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(realmObj)
+        }
+        
     }
     
 }
