@@ -10,10 +10,10 @@ import RealmSwift
 
 class CurrencyObject: Object {
     
-    @objc dynamic var currency    = ""
-    @objc dynamic var sell        = ""
-    @objc dynamic var buy         = ""
-    @objc dynamic var flag        = ""
-    @objc dynamic var date        = Date()
+    @objc dynamic var currency  :String = ""
+    @objc dynamic var sell      :String = ""
+    @objc dynamic var buy       :String = ""
+    @objc dynamic var flag      :String = ""
+    @objc dynamic var date      :Date   = Date()
     
 }

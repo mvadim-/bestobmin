@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     
     func setup() -> Void {
         curTV.dataSource                = self
+        curTV.delegate                  = self
         curTV.rowHeight                 = 60
         refreshControl.attributedTitle  = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action:#selector(refreshData(_:)), for: .valueChanged)
@@ -88,7 +89,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource{
+extension ViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return curList.count
     }
@@ -105,6 +106,16 @@ extension ViewController: UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       // let vc = presentingViewController as! DetailedController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "Details") as! DetailedController
+
+        let cm = curList[indexPath.row]
+        vc.currency = cm?.currency ?? ""
+        present(vc, animated: true, completion: nil)
+        
+    }
+    
     func updateDB(cur:VMCurrencyModel) {
         let realmObj        = CurrencyObject()
         realmObj.currency   = cur.currency
@@ -116,8 +127,5 @@ extension ViewController: UITableViewDataSource{
         try! realm.write {
             realm.add(realmObj)
         }
-        
     }
-    
 }
-
