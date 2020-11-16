@@ -5,4 +5,5 @@ target 'BestObmin' do
   pod "SwiftSoup"
   pod 'SKActivityIndicatorView', '~> 0.1'
   pod 'RealmSwift'
+  pod 'Charts'
  end

@@ -48,7 +48,7 @@ extension DetailedController :UITableViewDataSource{
         guard let cm :CurrencyObject = curList?[indexPath.row] else {return cell}
        
         let df = DateFormatter()
-        df.dateFormat = "MM-dd hh:mm"
+        df.dateFormat = "dd.MM hh:mm"
         let date = df.string(from: cm.date)
         
         cell.date.text = date
