@@ -16,4 +16,15 @@ class CurrencyObject: Object {
     @objc dynamic var flag      :String = ""
     @objc dynamic var date      :Date   = Date()
     
+    convenience init(add cur:VMCurrencyModel) {
+        self.init()
+        
+        self.currency = cur.currency
+        self.flag     = cur.flag.components(separatedBy: "/").last!
+        self.buy      = cur.buy
+        self.sell     = cur.sell
+        self.date     = Date()
+        
+    }
+    
 }

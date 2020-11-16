@@ -11,6 +11,7 @@
 		B71C7E68255ED52300B4D24B /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C7E67255ED52300B4D24B /* DBModel.swift */; };
 		B71C7E6B255EE72100B4D24B /* DetailedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C7E6A255EE72100B4D24B /* DetailedController.swift */; };
 		B71C7E6E255EFD2500B4D24B /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C7E6D255EFD2400B4D24B /* DetailedCell.swift */; };
+		B7AF5C4E2562955200F5160E /* realmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AF5C4D2562955200F5160E /* realmHelper.swift */; };
 		B7C866631FC3641A00581AED /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C866621FC3641A00581AED /* CurrencyTableViewCell.swift */; };
 		C3CBC9741FAA232300802D44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CBC9731FAA232300802D44 /* AppDelegate.swift */; };
 		C3CBC9761FAA232300802D44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CBC9751FAA232300802D44 /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 		B71C7E67255ED52300B4D24B /* DBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModel.swift; sourceTree = "<group>"; };
 		B71C7E6A255EE72100B4D24B /* DetailedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedController.swift; sourceTree = "<group>"; };
 		B71C7E6D255EFD2400B4D24B /* DetailedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
+		B7AF5C4D2562955200F5160E /* realmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = realmHelper.swift; sourceTree = "<group>"; };
 		B7C866621FC3641A00581AED /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		C3CBC9701FAA232300802D44 /* BestObmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestObmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CBC9731FAA232300802D44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				B7C8665E1FC3632A00581AED /* UI */,
 				B7C866641FC3642D00581AED /* View */,
 				C3CBC9731FAA232300802D44 /* AppDelegate.swift */,
+				B7AF5C4D2562955200F5160E /* realmHelper.swift */,
 				C3CBC97A1FAA232300802D44 /* Assets.xcassets */,
 				C3CBC97F1FAA232300802D44 /* Info.plist */,
 			);
@@ -262,6 +265,7 @@
 				B7C866631FC3641A00581AED /* CurrencyTableViewCell.swift in Sources */,
 				C3CBC9761FAA232300802D44 /* ViewController.swift in Sources */,
 				B71C7E6E255EFD2500B4D24B /* DetailedCell.swift in Sources */,
+				B7AF5C4E2562955200F5160E /* realmHelper.swift in Sources */,
 				C3CBC9951FAB683C00802D44 /* VMCurrencyModel.swift in Sources */,
 				C3CBC9741FAA232300802D44 /* AppDelegate.swift in Sources */,
 			);

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     lazy var refreshControl = UIRefreshControl()
     static let myURLString  = "http://bestobmin.com.ua"
     var curLimit            = "opt"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -45,8 +46,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func gurt(_ sender: UIBarButtonItem) {
-        sender.title = (sender.title == "$$$") ? "$" : "$$$"
-        curLimit = (sender.title == "$$$") ? "rozdrib" : "opt"
+        sender.title    = (sender.title == "$$$") ? "$" : "$$$"
+        curLimit        = (sender.title == "$$$") ? "rozdrib" : "opt"
         updateSources()
     }
     
@@ -107,25 +108,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // let vc = presentingViewController as! DetailedController
         let vc = storyboard?.instantiateViewController(withIdentifier: "Details") as! DetailedController
-
         let cm = curList[indexPath.row]
         vc.currency = cm?.currency ?? ""
         present(vc, animated: true, completion: nil)
-        
     }
     
     func updateDB(cur:VMCurrencyModel) {
-        let realmObj        = CurrencyObject()
-        realmObj.currency   = cur.currency
-        realmObj.buy        = cur.buy
-        realmObj.sell       = cur.sell
-        realmObj.date       = Date()
-        realmObj.flag       = cur.flag.components(separatedBy: "/").last!
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(realmObj)
+        let realmObj    = CurrencyObject.init(add: cur)
+        let storedObj   = realmHelper.realmObjectslist(forCurrency: cur.currency).first
+        if (storedObj?.sell != realmObj.sell || storedObj?.buy != realmObj.buy)  {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(realmObj)
+            }
         }
     }
 }

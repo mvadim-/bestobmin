@@ -16,14 +16,11 @@ class DetailedController: UIViewController {
     @IBOutlet weak var Item: UIBarButtonItem!
     var currency:String = ""
     var curList: Results<CurrencyObject>? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        Item.title = currency
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "currency = %@", "\(currency)")
-
-        curList = realm.objects(CurrencyObject.self).filter(predicate).sorted(byKeyPath: "date", ascending: false)
-        //
+        Item.title  = currency
+        curList     = realmHelper.realmObjectslist(forCurrency: currency)
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,22 +35,18 @@ class DetailedController: UIViewController {
 }
 extension DetailedController :UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return curList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DetailedCell  = tableView.dequeueReusableCell(withIdentifier: "detailedCell") as! DetailedCell
-       
-        guard let cm :CurrencyObject = curList?[indexPath.row] else {return cell}
-       
-        let df = DateFormatter()
-        df.dateFormat = "dd.MM hh:mm"
-        let date = df.string(from: cm.date)
-        
-        cell.date.text = date
-        cell.buy.text = cm.buy
-        cell.sell.text = cm.sell
+        let cell: DetailedCell          = tableView.dequeueReusableCell(withIdentifier: "detailedCell") as! DetailedCell
+        guard let cm :CurrencyObject    = curList?[indexPath.row] else {return cell}
+        let df          = DateFormatter()
+        df.dateFormat   = "dd.MM hh:mm"
+        let date        = df.string(from: cm.date)
+        cell.date.text  = date
+        cell.buy.text   = cm.buy
+        cell.sell.text  = cm.sell
         return cell
     }
     
