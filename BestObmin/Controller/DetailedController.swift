@@ -28,64 +28,96 @@ class DetailedController: UIViewController, ChartViewDelegate {
     
     
     @IBAction func chart(_ sender: UIBarButtonItem) {
-        tv.isHidden = true
-        let rect = CGRect(
-            origin: tv.frame.origin,
-            size: tv.frame.size
-        )
-        chartView                           = LineChartView.init(frame:rect)
-        chartView.delegate                  = self
-        chartView.chartDescription?.enabled = false
-        chartView.dragEnabled               = true
-        chartView.setScaleEnabled(true)
-        chartView.pinchZoomEnabled          = true
         
-        // x-axis
-        let llXAxis                 = chartView.xAxis
-        llXAxis.labelPosition       = .bottom
-        llXAxis.gridLineDashLengths = [10, 10]
-        llXAxis.gridLineDashPhase   = 0
-        let leftAxis                = chartView.leftAxis
-        leftAxis.removeAllLimitLines()
 
-        // y-axis
-        let min                                     = curList?.first
-        leftAxis.axisMaximum                        = Double(min!.sell)! + 0.5
-        leftAxis.axisMinimum                        = Double(min!.buy)! - 0.5
-        leftAxis.gridLineDashLengths                = [5, 5]
-        leftAxis.drawLimitLinesBehindDataEnabled    = true
+        if sender.title == "Graph" {
+            tv.isHidden = true
+            chartView.isHidden = false
+        } else{
+            tv.isHidden = false
+            chartView.isHidden = true
+        }
         
-        chartView.rightAxis.enabled = false
-        chartView.legend.form       = .line
-        chartView.animate(xAxisDuration: 1.5)
-        self.setDataCount(forDateInterval: 1)
-        view.addSubview(chartView)
+        sender.title = (sender.title == "Graph") ? "Table" : "Graph"
+
+        if chartView.isEmpty() {
+            let rect = CGRect(
+                origin: tv.frame.origin,
+                size: tv.frame.size
+            )
+            chartView                           = LineChartView.init(frame:rect)
+            chartView.delegate                  = self
+            chartView.chartDescription?.enabled = false
+            chartView.dragEnabled               = true
+            chartView.setScaleEnabled(true)
+            chartView.pinchZoomEnabled          = true
+            
+            // x-axis
+            let llXAxis                 = chartView.xAxis
+            llXAxis.labelPosition       = .bottom
+            llXAxis.granularity = 1
+            llXAxis.gridLineDashLengths = [10, 10]
+            llXAxis.gridLineDashPhase   = 0
+            let leftAxis                = chartView.leftAxis
+            leftAxis.removeAllLimitLines()
+
+            // y-axis
+            let cur                                     = curList?.first
+            leftAxis.axisMaximum                        = Double(cur!.sell)! + 0.2
+            leftAxis.axisMinimum                        = Double(cur!.buy)! - 0.2
+            leftAxis.gridLineDashLengths                = [5, 5]
+            leftAxis.drawLimitLinesBehindDataEnabled    = true
+            
+            let df          = DateFormatter()
+            df.dateFormat   = "EEEE, MMM d, yyyy"
+            let date = df.string(from: cur!.date)
+            
+            let firstLegend = LegendEntry.init(label: "\(date)", form: .default, formSize: CGFloat.nan, formLineWidth: CGFloat.nan, formLineDashPhase: CGFloat.nan, formLineDashLengths: nil, formColor: UIColor.black)
+            chartView.legend.extraEntries.append(firstLegend)
+            chartView.rightAxis.enabled = false
+            chartView.legend.form       = .line
+            chartView.animate(xAxisDuration: 0.5)
+            self.setDataCount(forDateInterval: 1)
+            view.addSubview(chartView)
+        }
+        
+        
     }
     
     func setDataCount(forDateInterval date :Int) {
         
-        var valuesBuy = [ChartDataEntry]()
-        var valuesSell = [ChartDataEntry]()
-
+        var valuesBuy       = [ChartDataEntry]()
+        var valuesSell      = [ChartDataEntry]()
+        var valuesDates     = [String]()
+        
+        let df          = DateFormatter()
+        df.dateFormat   = "hh:mm"
+        
         curList?.enumerated().forEach({(index, cm :CurrencyObject) in
             let today = Calendar(identifier: .gregorian).isDateInToday(cm.date)
             if (today) {
-                valuesBuy.append(ChartDataEntry(x: Double(index), y: Double(cm.buy)!, data: cm.date))
-                valuesSell.append(ChartDataEntry(x: Double(index), y: Double(cm.sell)!, data: cm.date))}
+                valuesBuy.append(ChartDataEntry(x: Double(index),
+                                                y: Double(cm.buy)!))
+                valuesSell.append(ChartDataEntry(x: Double(index),
+                                                 y: Double(cm.sell)!))
+                valuesDates.append(df.string(from: cm.date))
+            }
         })
         
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:valuesDates)
+        
         let setBuy                = LineChartDataSet(entries: valuesBuy, label: "Buy")
-        setup(setBuy)
         setBuy.fillAlpha          = 0.8
         setBuy.fillColor          = .red
-        
+        setup(setBuy)
+
         let setSell                = LineChartDataSet(entries: valuesSell, label: "Sell")
-        setup(setSell)
         setSell.fillAlpha          = 0.2
         setSell.fillColor          = .green
-        
-        let data                = LineChartData(dataSets: [setBuy,setSell])
-        chartView.data          = data
+        setup(setSell)
+
+        let data        = LineChartData(dataSets: [setBuy,setSell])
+        chartView.data  = data
     }
     
     private func setup(_ dataSet: LineChartDataSet) {
