@@ -16,6 +16,10 @@ class DetailedController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var tv: UITableView!
     @IBOutlet weak var Item: UIBarButtonItem!
     @IBOutlet weak var chart: UIBarButtonItem!
+    @IBOutlet weak var dayToolBar: UIToolbar!
+    @IBOutlet var days: [UIBarButtonItem]!
+    
+    
     var currency:String = ""
     var curList: Results<CurrencyObject>? = nil
     var chartView: LineChartView = LineChartView()
@@ -26,20 +30,43 @@ class DetailedController: UIViewController, ChartViewDelegate {
         curList     = realmHelper.realmObjectslist(forCurrency: currency)
     }
     
+    @IBAction func daySelected(_ sender: UIBarButtonItem) {
+        var days :Int = 0
+        switch sender.title {
+        case "All":
+            days = 0
+            break
+        case "1 day":
+            days = 1
+            break
+        case "7 day":
+            days = 7
+            break
+        case "30 day":
+            days = 30
+            break
+        default:
+            days = 1
+            break
+        }
+        setDataCount(forDateInterval: days)
+    }
     
     @IBAction func chart(_ sender: UIBarButtonItem) {
         
-
         if sender.title == "Graph" {
-            tv.isHidden = true
-            chartView.isHidden = false
+            tv.isHidden         = true
+            chartView.isHidden  = false
+            dayToolBar.isHidden = false
+            
         } else{
-            tv.isHidden = false
-            chartView.isHidden = true
+            tv.isHidden         = false
+            chartView.isHidden  = true
+            dayToolBar.isHidden = true
         }
         
         sender.title = (sender.title == "Graph") ? "Table" : "Graph"
-
+        
         if chartView.isEmpty() {
             let rect = CGRect(
                 origin: tv.frame.origin,
@@ -60,7 +87,7 @@ class DetailedController: UIViewController, ChartViewDelegate {
             llXAxis.gridLineDashPhase   = 0
             let leftAxis                = chartView.leftAxis
             leftAxis.removeAllLimitLines()
-
+            
             // y-axis
             let cur                                     = curList?.first
             leftAxis.axisMaximum                        = Double(cur!.sell)! + 0.2
@@ -72,16 +99,35 @@ class DetailedController: UIViewController, ChartViewDelegate {
             df.dateFormat   = "EEEE, MMM d, yyyy"
             let date = df.string(from: cur!.date)
             
-            let firstLegend = LegendEntry.init(label: "\(date)", form: .default, formSize: CGFloat.nan, formLineWidth: CGFloat.nan, formLineDashPhase: CGFloat.nan, formLineDashLengths: nil, formColor: UIColor.black)
+            // legend
+            let firstLegend = LegendEntry.init(label: "\(date)",
+                                               form: .default,
+                                               formSize: CGFloat.nan,
+                                               formLineWidth: CGFloat.nan,
+                                               formLineDashPhase: CGFloat.nan,
+                                               formLineDashLengths: nil,
+                                               formColor: UIColor.black)
             chartView.legend.extraEntries.append(firstLegend)
             chartView.rightAxis.enabled = false
             chartView.legend.form       = .line
+            
+            // marker
+            let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 0.75),
+                                       font: .systemFont(ofSize: 12),
+                                       textColor: .white,
+                                       insets: UIEdgeInsets(top: 8, left: 8,
+                                                            bottom: 20, right: 8))
+            marker.chartView    = chartView
+            marker.minimumSize  = CGSize(width: 80,
+                                         height: 40)
+            chartView.marker    = marker
+            
             chartView.animate(xAxisDuration: 0.5)
+            
             self.setDataCount(forDateInterval: 1)
+            
             view.addSubview(chartView)
         }
-        
-        
     }
     
     func setDataCount(forDateInterval date :Int) {
@@ -90,12 +136,24 @@ class DetailedController: UIViewController, ChartViewDelegate {
         var valuesSell      = [ChartDataEntry]()
         var valuesDates     = [String]()
         
-        let df          = DateFormatter()
-        df.dateFormat   = "hh:mm"
+        let df = DateFormatter()
         
         curList?.enumerated().forEach({(index, cm :CurrencyObject) in
-            let today = Calendar(identifier: .gregorian).isDateInToday(cm.date)
-            if (today) {
+            var add         = true
+            let now         = Date()
+            df.dateFormat   = "dd.MM"
+            let secInDay :Double = 86400
+            
+            if date == 1 {
+                add             = Calendar(identifier: .gregorian).isDateInToday(cm.date)
+                df.dateFormat   = "hh:mm"
+            } else if date > 1 {
+                let start           = Date(timeIntervalSinceNow: -secInDay*Double(date))
+                let dateInterval    = DateInterval(start: start, end:now )
+                add                 = dateInterval.contains(cm.date)
+            }
+            
+            if (add) {
                 valuesBuy.append(ChartDataEntry(x: Double(index),
                                                 y: Double(cm.buy)!))
                 valuesSell.append(ChartDataEntry(x: Double(index),
@@ -106,16 +164,18 @@ class DetailedController: UIViewController, ChartViewDelegate {
         
         chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:valuesDates)
         
-        let setBuy                = LineChartDataSet(entries: valuesBuy, label: "Buy")
-        setBuy.fillAlpha          = 0.8
-        setBuy.fillColor          = .red
+        let setBuy       = LineChartDataSet(entries: valuesBuy, label: "Buy")
+        setBuy.drawValuesEnabled = Bool.init((date == 1) ? true : false)
+        setBuy.fillAlpha = 0.8
+        setBuy.fillColor = .red
         setup(setBuy)
-
-        let setSell                = LineChartDataSet(entries: valuesSell, label: "Sell")
-        setSell.fillAlpha          = 0.2
-        setSell.fillColor          = .green
+        
+        let setSell       = LineChartDataSet(entries: valuesSell, label: "Sell")
+        setSell.fillAlpha = 0.2
+        setSell.fillColor = .green
+        setSell.drawValuesEnabled = Bool.init((date == 1) ? true : false)
         setup(setSell)
-
+        
         let data        = LineChartData(dataSets: [setBuy,setSell])
         chartView.data  = data
     }

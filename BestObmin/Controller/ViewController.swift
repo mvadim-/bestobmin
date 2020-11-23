@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        realmHelper.deleteObjects()
         setup()
         refreshData((Any).self)
     }
@@ -46,9 +47,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func gurt(_ sender: UIBarButtonItem) {
-        sender.title    = (sender.title == "$$$") ? "$" : "$$$"
-        curLimit        = (sender.title == "$$$") ? "rozdrib" : "opt"
-        updateSources()
+//        sender.title    = (sender.title == "$$$") ? "$" : "$$$"
+//        curLimit        = (sender.title == "$$$") ? "rozdrib" : "opt"
+        //updateSources()
     }
     
     func updateSources() -> Void {

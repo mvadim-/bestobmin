@@ -222,6 +222,32 @@
                                     <outlet property="delegate" destination="HiO-VU-aFk" id="BSE-cY-VzM"/>
                                 </connections>
                             </tableView>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="4Xu-7V-OwV">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="All" id="cue-1r-1Qv">
+                                        <connections>
+                                            <action selector="daySelected:" destination="HiO-VU-aFk" id="B0n-es-kf8"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="1 day" id="bYq-Xe-BEI">
+                                        <connections>
+                                            <action selector="daySelected:" destination="HiO-VU-aFk" id="WOA-9l-5Jg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="7 day" id="SPo-P1-bBm">
+                                        <connections>
+                                            <action selector="daySelected:" destination="HiO-VU-aFk" id="lMz-3o-0aX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="30 day" id="Qhy-IJ-kkg">
+                                        <connections>
+                                            <action selector="daySelected:" destination="HiO-VU-aFk" id="Vjv-s1-xKs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="StM-Ys-aEj"/>
                         <color key="backgroundColor" red="0.92180126910000004" green="0.96702319380000001" blue="0.76857471470000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -238,7 +264,12 @@
                     <connections>
                         <outlet property="Item" destination="m7m-q7-ZlM" id="RDx-UW-rPY"/>
                         <outlet property="chart" destination="Ltm-7P-Ah1" id="7iK-QJ-JaE"/>
+                        <outlet property="dayToolBar" destination="4Xu-7V-OwV" id="23U-7F-PH5"/>
                         <outlet property="tv" destination="SDu-f4-J78" id="vWe-OE-F82"/>
+                        <outletCollection property="days" destination="cue-1r-1Qv" collectionClass="NSMutableArray" id="2kd-AB-D1m"/>
+                        <outletCollection property="days" destination="bYq-Xe-BEI" collectionClass="NSMutableArray" id="FAc-S3-1lg"/>
+                        <outletCollection property="days" destination="SPo-P1-bBm" collectionClass="NSMutableArray" id="hqO-6u-QJ1"/>
+                        <outletCollection property="days" destination="Qhy-IJ-kkg" collectionClass="NSMutableArray" id="Du3-5j-ica"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oM6-ri-UWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
