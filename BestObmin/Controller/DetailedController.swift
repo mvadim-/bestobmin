@@ -124,7 +124,7 @@ class DetailedController: UIViewController, ChartViewDelegate {
             
             chartView.animate(xAxisDuration: 0.5)
             
-            self.setDataCount(forDateInterval: 1)
+            self.setDataCount(forDateInterval: 7)
             
             view.addSubview(chartView)
         }
