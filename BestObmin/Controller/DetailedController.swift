@@ -74,7 +74,7 @@ class DetailedController: UIViewController, ChartViewDelegate {
             )
             chartView                           = LineChartView.init(frame:rect)
             chartView.delegate                  = self
-            chartView.chartDescription?.enabled = false
+            chartView.chartDescription.enabled  = false
             chartView.dragEnabled               = true
             chartView.setScaleEnabled(true)
             chartView.pinchZoomEnabled          = true
@@ -82,7 +82,7 @@ class DetailedController: UIViewController, ChartViewDelegate {
             // x-axis
             let llXAxis                 = chartView.xAxis
             llXAxis.labelPosition       = .bottom
-            llXAxis.granularity = 1
+            llXAxis.granularity         = 1
             llXAxis.gridLineDashLengths = [10, 10]
             llXAxis.gridLineDashPhase   = 0
             let leftAxis                = chartView.leftAxis
@@ -100,13 +100,7 @@ class DetailedController: UIViewController, ChartViewDelegate {
             let date = df.string(from: cur!.date)
             
             // legend
-            let firstLegend = LegendEntry.init(label: "\(date)",
-                                               form: .default,
-                                               formSize: CGFloat.nan,
-                                               formLineWidth: CGFloat.nan,
-                                               formLineDashPhase: CGFloat.nan,
-                                               formLineDashLengths: nil,
-                                               formColor: UIColor.black)
+            let firstLegend = LegendEntry.init(label: "\(date)")
             chartView.legend.extraEntries.append(firstLegend)
             chartView.rightAxis.enabled = false
             chartView.legend.form       = .line

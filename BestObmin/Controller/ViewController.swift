@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         }
         
         do {
-            let doc: Document   = try SwiftSoup.parse(myHTMLString)
+            let doc: SwiftSoup.Document   = try SwiftSoup.parse(myHTMLString)
             let table: Elements = try doc.getElementsByAttributeValue("id", curLimit)
             let rows: Elements  = try (table.array().first?.getElementsByClass("row"))!
             self.curList        = []

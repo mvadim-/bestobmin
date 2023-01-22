@@ -1,14 +1,16 @@
 PODS:
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
-  - Realm (3.20.0):
-    - Realm/Headers (= 3.20.0)
-  - Realm/Headers (3.20.0)
-  - RealmSwift (3.20.0):
-    - Realm (= 3.20.0)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
+  - Realm (10.34.1):
+    - Realm/Headers (= 10.34.1)
+  - Realm/Headers (10.34.1)
+  - RealmSwift (10.34.1):
+    - Realm (= 10.34.1)
   - SKActivityIndicatorView (0.1.0)
-  - SwiftSoup (2.2.1)
+  - SwiftAlgorithms (1.0.0)
+  - SwiftSoup (2.5.3)
 
 DEPENDENCIES:
   - Charts
@@ -22,15 +24,17 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SKActivityIndicatorView
+    - SwiftAlgorithms
     - SwiftSoup
 
 SPEC CHECKSUMS:
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
-  Realm: 8b2ca5bc6479a91f379b6b42b5922e396cd5ba5a
-  RealmSwift: 1949ef26a279e1845bd51d591b9103adfcd121df
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
+  Realm: fe824cd5b183cd55a50a6bcb4bce3ac1650e60b6
+  RealmSwift: c7f668f82982fc8b62366b78b8dc761f15141df6
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
-  SwiftSoup: a91d3c96ecb6f8f13005552ef60f9075aae4a7f3
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftSoup: 33e8d374021a6c332788f78fa29a93227d8a7699
 
-PODFILE CHECKSUM: 1d840fe3bfe06f5f816b15054203809f137bbc70
+PODFILE CHECKSUM: 8fb8885e84524895b20bc9d7a275b7ca23e40f67
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.11.2
